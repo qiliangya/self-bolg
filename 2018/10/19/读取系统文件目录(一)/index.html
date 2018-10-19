@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.qiliangya.com">
-  <title>关于移动端适配 | 七凉呀</title>
+  <title>读取系统文件目录(一) | 七凉呀</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在现今的前端技术中，适配问题 变得越来越重要，各种复杂的机型，方案的多种，本篇博客 将介绍几种常见的适配方案。">
-<meta name="keywords" content="-你不知道的css">
+  <meta name="description" content="本篇教程用于记录学习一些node常用的API 在使用vue-cli3.0的时候,发现已经可以生成gui界面来操控本地的文件目录,顿时感觉高大上,于是想自己用node去操作一下关于文件模块(fs)的api,以此练习。">
+<meta name="keywords" content="-跟我学node">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于移动端适配">
-<meta property="og:url" content="http://www.qiliangya.com/2018/10/19/关于移动端适配/index.html">
+<meta property="og:title" content="读取系统文件目录(一)">
+<meta property="og:url" content="http://www.qiliangya.com/2018/10/19/读取系统文件目录(一)/index.html">
 <meta property="og:site_name" content="七凉呀">
-<meta property="og:description" content="前言在现今的前端技术中，适配问题 变得越来越重要，各种复杂的机型，方案的多种，本篇博客 将介绍几种常见的适配方案。">
+<meta property="og:description" content="本篇教程用于记录学习一些node常用的API 在使用vue-cli3.0的时候,发现已经可以生成gui界面来操控本地的文件目录,顿时感觉高大上,于是想自己用node去操作一下关于文件模块(fs)的api,以此练习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-19T09:43:43.823Z">
+<meta property="og:updated_time" content="2018-10-19T09:51:15.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于移动端适配">
-<meta name="twitter:description" content="前言在现今的前端技术中，适配问题 变得越来越重要，各种复杂的机型，方案的多种，本篇博客 将介绍几种常见的适配方案。">
+<meta name="twitter:title" content="读取系统文件目录(一)">
+<meta name="twitter:description" content="本篇教程用于记录学习一些node常用的API 在使用vue-cli3.0的时候,发现已经可以生成gui界面来操控本地的文件目录,顿时感觉高大上,于是想自己用node去操作一下关于文件模块(fs)的api,以此练习。">
   
     <link rel="alternative" href="/atom.xml" title="七凉呀" type="application/atom+xml">
   
@@ -169,54 +169,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于移动端适配" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-读取系统文件目录(一)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于移动端适配
+      读取系统文件目录(一)
     </h1>
   
 
         
-        <a href="/2018/10/19/关于移动端适配/" class="archive-article-date">
-  	<time datetime="2018-10-19T02:49:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-19</time>
+        <a href="/2018/10/19/读取系统文件目录(一)/" class="archive-article-date">
+  	<time datetime="2018-10-19T08:58:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在现今的前端技术中，适配问题 变得越来越重要，各种复杂的机型，方案的多种，本篇博客 将介绍几种常见的适配方案。<br><a id="more"></a></p>
-<h2 id="百分比布局"><a href="#百分比布局" class="headerlink" title="百分比布局"></a>百分比布局</h2><ul>
-<li><p>兼容性非常好的方案。</p>
-</li>
-<li><p>要想设置当前容器的高度或宽度百分比，必须“明确”知道父容器的高度或宽度</p>
-</li>
-<li><p>精度有些不准确, 字体常用em(依据父元素的字体大小适应)单位</p>
-</li>
+        <h1 id="本篇教程用于记录学习一些node常用的API"><a href="#本篇教程用于记录学习一些node常用的API" class="headerlink" title="本篇教程用于记录学习一些node常用的API"></a>本篇教程用于记录学习一些node常用的API</h1><ul>
+<li>在使用vue-cli3.0的时候,发现已经可以生成gui界面来操控本地的文件目录,顿时感觉高大上,于是想自己用node去操作一下关于文件模块(fs)的api,以此练习。</li>
 </ul>
-<p>在这种布局里，通常只有设置宽度为百分比，而高度不可控，只能设置为px。 操作麻烦，但在前端的上古时期，这种布局是最为常见的。</p>
-<h2 id="rem布局"><a href="#rem布局" class="headerlink" title="rem布局"></a>rem布局</h2><ul>
-<li><p>rem是以根元素字体为基准的单位，也是 字体适应的最优解，通过屏幕大小的不同 控制根元素(html)的字体大小 来进行适配。</p>
+<a id="more"></a>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol>
+<li>安装<a href="https://github.com/expressjs/express" target="_blank" rel="noopener">express</a><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i express -g</span><br><span class="line"></span><br><span class="line">express admin(你的文件名) -e(使用ejs模板)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>淘宝开源了<a href="https://github.com/amfe/lib-flexible" target="_blank" rel="noopener">flexible.js</a>，这是一套淘宝根据不同设备变化相应的字体的适配方案。<br><strong>不过,由于vw,vh 已经得到众多浏览器的支持，所以这套过渡方案已经被废弃，因为flexible的实质就是为了模拟vw,奥卡姆剃刀原理，若无必要,勿增实体啦~</strong></p>
-</li>
-</ul>
-<h2 id="viewport布局"><a href="#viewport布局" class="headerlink" title="viewport布局"></a>viewport布局</h2><ul>
-<li><p>今天的重头戏, viewport单位 vw,vh, vmin, vmax</p>
-</li>
-<li><p>vw: 视窗宽度的百分比(1vw 代表视窗宽度的1%)</p>
-</li>
-<li>vh: 视窗高度的百分比(1vh 代表视窗高度的1%)</li>
-<li>vmin: 当前 vw 和 vh 中较小的一个值</li>
-<li>vmax: 当前 vw 和 vh 中较大的一个值</li>
-</ul>
-<p>作为现今适配方案里，最适用的单位，当然不能少了它。 vw，vh 我想不用说，字面意思可以理解。那么 vmin 和vmax 在什么时候来用呢。</p>
-<p>我们都知道 现在移动端不仅适配竖屏，还有万恶的横屏啊！为了达到统一， 出现了vmin vmax这种单位，在设置字体时 使用vmin和vmax就能切换自如，测试再也没办法找你的茬了！</p>
-<h4 id="给点打赏，让我给小九买奶茶喝吧"><a href="#给点打赏，让我给小九买奶茶喝吧" class="headerlink" title="给点打赏，让我给小九买奶茶喝吧~"></a>给点打赏，让我给小九买奶茶喝吧~</h4>
+</ol>
+<p>安装完成后</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> admin</span><br><span class="line"></span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>这样就得到了一个初始化的express的工程目录。</p>
+<p>然后在当前目录下的命令行 输入<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="built_in">start</span></span><br></pre></td></tr></table></figure></p>
+<p>打开浏览器 输入<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> 如果出现express 说明一切顺利啦.</p>
+<p>ok, 接下来进入的生成的routes目录的index.js<br>首先 我们得明白操作文件的api是node的<a href="http://nodejs.cn/api/fs.html" target="_blank" rel="noopener">fs</a>模块,由于这个是内置模块,并不需要安装依赖,可以直接引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br></pre></td></tr></table></figure>
+<p>然后,我发现,node中好像并没有直接获取盘符的api,出师未捷身先凉.不过,由于我们是在window系统下操作的,所以联想到，可以使用cmd命令(<strong>wmic logicaldisk get caption</strong> 关于此命令可百度查询window下如何获取盘符)来操作啊！</p>
+<p>那么在node中操作cmd命令,该如何做呢</p>
+<p>引入node-cmd模块<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i node-<span class="built_in">cmd</span> -S</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后这下就迎刃而解了,在根目录下新建controler文件夹里面新建cmd.js和index.js,编写代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nodeCmd = <span class="built_in">require</span>(<span class="string">'node-cmd'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> SYSTEM_CODE = <span class="string">'wmic logicaldisk get caption'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取系统盘符</span></span><br><span class="line">exports.getSystemCode = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    nodeCmd.get(SYSTEM_CODE,<span class="function"><span class="keyword">function</span>(<span class="params">err,data,stderr</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">var</span> CODE = data.match(<span class="regexp">/(\S)(?=:)/g</span>);  <span class="comment">// 获取当前系统盘符,输出数组</span></span><br><span class="line">      resolve(CODE)<span class="comment">// 得到数组['C', 'D', 'E', 'F']</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里由于cmd的读取是异步的,所以使用promise来返回一个成功状态,利用正则去除多余的无用信息,最后,将该方法暴露出去。</p>
+<hr>
+<p>这时候 我们进入到index.js里,既然已经能拿到盘符,那么这时候就需要查找该路径下的文件目录了,这里使用fs.readdir方法，不过马上开始碰到一个异步问题，我想要的是整个目录树,但由于fs.readdir是异步的,在遍历盘符的时候就已经执行完了,这里我们引入async模块,使用async.each方法处理多个异步并发请求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">var</span> cmd = <span class="built_in">require</span>(<span class="string">'./cmd'</span>)</span><br><span class="line"><span class="keyword">var</span> URL = <span class="built_in">require</span>(<span class="string">'url'</span>).URL</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">async</span> = <span class="built_in">require</span>(<span class="string">'async'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nowDir = &#123;&#125;;  <span class="comment">// 获取到的目录树</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDir</span>(<span class="params">codes</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">async</span>.each(codes, <span class="function"><span class="keyword">function</span>(<span class="params">item,callback</span>)</span>&#123;</span><br><span class="line">      fs.readdir(<span class="keyword">new</span> URL(<span class="string">'file://'</span> + item + <span class="string">':'</span>),<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">        nowDir[item] = data</span><br><span class="line">        i++;</span><br><span class="line">        <span class="keyword">if</span> (i == codes.length) &#123;    <span class="comment">// 当请求为最后一个时,视为多个异步完成请求.</span></span><br><span class="line">          resolve()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">cmd.getSystemCode().then(<span class="function"><span class="params">codes</span> =&gt;</span> &#123;</span><br><span class="line">  getDir(codes).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(nowDir) <span class="comment">// 完成！ 获取到了整个目录树</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>下篇将介绍,如何遍历目录树</p>
+
       
 
       
@@ -260,7 +258,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-你不知道的css</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">-跟我学node</a>
         		</li>
       		
 		</ul>
@@ -316,7 +314,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.qiliangya.com/2018/10/19/关于移动端适配/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.qiliangya.com/2018/10/19/读取系统文件目录(一)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,15 +328,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/10/19/读取系统文件目录(一)/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          读取系统文件目录(一)
-        
-      </div>
-    </a>
   
+    <a href="/2018/10/19/关于移动端适配/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于移动端适配</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
