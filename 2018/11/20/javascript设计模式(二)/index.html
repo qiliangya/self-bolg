@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.qiliangya.com">
   <title>javascript设计模式(二) | 七凉呀</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式   123456789101112let single = &amp;#123">
+  <meta name="description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式">
 <meta name="keywords" content="javascript设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript设计模式(二)">
 <meta property="og:url" content="http://www.qiliangya.com/2018/11/20/javascript设计模式(二)/index.html">
 <meta property="og:site_name" content="七凉呀">
-<meta property="og:description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式   123456789101112let single = &amp;#123">
+<meta property="og:description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-20T10:08:20.870Z">
+<meta property="og:updated_time" content="2018-11-20T10:17:49.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript设计模式(二)">
-<meta name="twitter:description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式   123456789101112let single = &amp;#123">
+<meta name="twitter:description" content="前言  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践   — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式 单体模式  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体  例如 很简单的一个单体模式">
   
     <link rel="alternative" href="/atom.xml" title="七凉呀" type="application/atom+xml">
   
@@ -197,7 +197,7 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践</p>
 <p>  — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式</p>
-<h2 id="单体模式"><a href="#单体模式" class="headerlink" title="单体模式"></a>单体模式</h2><p>  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体<br>  例如 很简单的一个单体模式</p>
+<h2 id="单体模式"><a href="#单体模式" class="headerlink" title="单体模式"></a>单体模式</h2><p>  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体<br>  例如 很简单的一个单体模式<br><a id="more"></a></p>
   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> single = &#123;</span><br><span class="line">  attr1: <span class="literal">false</span>,</span><br><span class="line">  attr2: <span class="number">2</span>,</span><br><span class="line">  method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">  &#125;,</span><br><span class="line">  method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>  在这个实例中, 所有成员 都可以通过 single. 来访问</p>
 <p>  不仅如此, 还可以修改这个成员的值</p>
@@ -502,11 +502,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
+                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
+                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
               </li>
             
             <div class="clearfix"></div>
