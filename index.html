@@ -196,7 +196,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  — 本篇教程是简述关于js的设计模式 应用于实际工作时的实践</p>
+<p>  — 上篇我们简述了 关于接口(Interface) 在js中的实现，今天我们将介绍 设计模式中最基本却又最有用的模式</p>
+<h2 id="单体模式"><a href="#单体模式" class="headerlink" title="单体模式"></a>单体模式</h2><p>  单体模式在实际运用中特别广泛, 尤其是为了避免构建过多的全局变量造成变量污染时,可以构建出单体<br>  例如 很简单的一个单体模式</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> single = &#123;</span><br><span class="line">  attr1: <span class="literal">false</span>,</span><br><span class="line">  attr2: <span class="number">2</span>,</span><br><span class="line">  method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">  &#125;,</span><br><span class="line">  method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  在这个实例中, 所有成员 都可以通过 single. 来访问</p>
+<p>  不仅如此, 还可以修改这个成员的值</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">single.attr2 = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(single.attr2) <span class="comment">// 5</span></span><br><span class="line">single.method1()  <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p>  但这样做 并不完全符合单体模式的概念 —— 单体是一个只能被实例化一次, 并且可以通过一个众所周知的访问点访问的类</p>
+<h3 id="创建私有变量"><a href="#创建私有变量" class="headerlink" title="创建私有变量"></a>创建私有变量</h3><p>  在js中并没有java这种强类型语言的对象私有成员, 也就是说js中 对象的值 是可以随意修改的. 但如果我们需要对象拥有自己的方法呢</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> NameSpaceTools = &#123;&#125;</span><br><span class="line">NameSpaceTools.singleton = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 使用闭包</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    attr1: <span class="literal">false</span>,</span><br><span class="line">    attr2: <span class="number">2</span>,</span><br><span class="line">    method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">    &#125;,</span><br><span class="line">    method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>  这样做,与我们直接使用字面量创建的对象 似乎并没有什么区别啊.为什么要画蛇添足呢？<br>  因为,这个包装函数创建了一个闭包,使得我们能通过闭包来添加真正属于自己的私有成员.接着往下看</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> NameSpaceTools = &#123;&#125;</span><br><span class="line">NameSpaceTools.singleton = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 使用闭包</span></span><br><span class="line">  <span class="comment">// 注意 私有成员我们在命名上 用 _ 做区分</span></span><br><span class="line">  <span class="keyword">let</span> _attr1 = <span class="number">1</span></span><br><span class="line">  <span class="keyword">let</span> _attr2 = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">_method1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    attr1: <span class="literal">false</span>,</span><br><span class="line">    attr2: <span class="number">2</span>,</span><br><span class="line">    method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">      _method1()</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">    &#125;,</span><br><span class="line">    method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>通过这种方式, 我们实现了私有成员的构建, 同时, 这种做法通常也叫做模块化开发, 因为你可以随意更改里面的成员, 也不会殃及你的同事.</p>
+<h3 id="惰性单体模式"><a href="#惰性单体模式" class="headerlink" title="惰性单体模式"></a>惰性单体模式</h3><p>过分的使用闭包, 会浪费内存, 所以有一种技术叫做 <strong>惰性单体模式</strong> 这种技术只会在使用到的时候才申请内存.<br>首先我们得改造一下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> NameSpaceTools = &#123;&#125;</span><br><span class="line">NameSpaceTools.singleton = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 使用闭包</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">constructor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 注意 私有成员我们在命名上 用 _ 做区分</span></span><br><span class="line">    <span class="keyword">let</span> _attr1 = <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> _attr2 = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_method1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      attr1: <span class="literal">false</span>,</span><br><span class="line">      attr2: <span class="number">2</span>,</span><br><span class="line">      method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">        _method1()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">      &#125;,</span><br><span class="line">      method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getInstance: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 控制的代码</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>将所有成员放在 新建的constructor函数里, 当然外部是访问不到这个函数的<br>接下来构建真正的单例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> NameSpaceTools = &#123;&#125;</span><br><span class="line">NameSpaceTools.singleton = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 使用闭包</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> uniqueInstance  <span class="comment">// 控制单体的标志</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">constructor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 注意 私有成员我们在命名上 用 _ 做区分</span></span><br><span class="line">    <span class="keyword">let</span> _attr1 = <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> _attr2 = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_method1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      attr1: <span class="literal">false</span>,</span><br><span class="line">      attr2: <span class="number">2</span>,</span><br><span class="line">      method1: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.attr2 = <span class="number">6</span>;</span><br><span class="line">        _method1()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.attr2)</span><br><span class="line">      &#125;,</span><br><span class="line">      method2: <span class="function"><span class="params">arg</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> arg * <span class="number">2</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getInstance: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 控制的代码</span></span><br><span class="line">      <span class="keyword">if</span> (!uniqueInstance) &#123;  <span class="comment">// 如果这个标志不存在, 也就意味着并没有构建实例</span></span><br><span class="line">        uniqueInstance = <span class="keyword">constructor</span>()</span><br><span class="line">      &#125;</span><br><span class="line">      return uniqueInstance // 返回这个实例</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>惰性单体模式缺点在于太复杂了！ 之前我们调用的话 只需要<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NameSpaceTools.singleton.method1()</span><br></pre></td></tr></table></figure></p>
+<p>现在的话 必须构建了实例之后 再调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NameSpaceTools.singleton.getInstance().method1()</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>单体模式好处在于对代码的组织, 命名空间, 以及模块化的应用. 不至于让你处理得一团糟, 而且也便于维护</p>
+<p>当然有利也有弊, 单体模式提供的是单体访问, 所以有可能导致模块间的强耦合, 并且不利于单元测试.</p>
+<p>但不论怎么说, 单体模式是一个很基本的思想, 为以后更复杂的设计模式提供了一个基本的方法, 也为以后封装插件, 迈出了第一步.</p>
+<hr>
+<p>有不足的地方 可以联系我, 当然 你想打赏也没问题 哈哈哈</p>
+<p>博客上有联系哦!</p>
+
       
 
       
@@ -491,7 +516,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 七凉呀
+    		&copy; 2018 七凉呀 访问人数<span id="number"></span>
     	</div>
       	<div class="footer-right">
       		<a href="http://qiliangya.github.io/" target="_blank">qiliang</a>  Theme <a href="http://qiliangya.github.io/" target="_blank">qiliang</a>
@@ -499,6 +524,42 @@
     </div>
   </div>
 </footer>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  (function(){
+    new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'https://bird.ioliu.cn/ip',
+        type: 'get',
+        success: function(data) {
+          if (data.status.code == 200) {
+            resolve(data.data)
+          } else {
+            reject(data.status.message)
+          }
+        },
+        error: function(err) {
+          reject(err)
+        }
+      })
+    })
+    .then(data => {
+      $.ajax({
+        url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed',
+        type: 'post',
+        data: {
+          urlAddress: window.location.href,
+          ipAddr: data.ip,
+          add:1
+        },
+        success: function(data) {
+					$('#number').text(data.seeNumber)
+          console.log(data)
+        }
+      })
+    })
+  })()
+</script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -578,11 +639,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
+                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
+                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
               </li>
             
             <div class="clearfix"></div>
@@ -724,39 +785,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 </div>
   </div>
 </body>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script>
-  (function(){
-    new Promise((resolve, reject) => {
-      $.ajax({
-        url: 'https://bird.ioliu.cn/ip',
-        type: 'get',
-        success: function(data) {
-          if (data.status.code == 200) {
-            resolve(data.data)
-          } else {
-            reject(data.status.message)
-          }
-        },
-        error: function(err) {
-          reject(err)
-        }
-      })
-    })
-    .then(data => {
-      $.ajax({
-        url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed',
-        type: 'post',
-        data: {
-          urlAddress: window.location.href,
-          ipAddr: data.ip,
-          add:1
-        },
-        success: function(data) {
-          console.log(data)
-        }
-      })
-    })
-  })()
-</script>
+
 </html>
