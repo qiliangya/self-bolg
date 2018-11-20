@@ -560,7 +560,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         type: 'get',
         success: function(data) {
           if (data.status.code == 200) {
-            resolve(data.data.ip)
+            resolve(data.data)
           } else {
             reject(data.status.message)
           }
@@ -568,14 +568,20 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         error: function(err) {
           reject(err)
         }
-      }).then(data => {
-        $.ajax({
-          url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed?ipAddr=' + data.data.ip + '&add=1',
-          type: 'post',
-          success: function(data) {
-            console.log(data)
-          }
-        })
+      })
+    })
+    .then(data => {
+      $.ajax({
+        url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed',
+        type: 'post',
+        data: {
+          urlAddress: window.location.href,
+          ipAddr: data.ip,
+          add:1
+        },
+        success: function(data) {
+          console.log(data)
+        }
       })
     })
   })()
