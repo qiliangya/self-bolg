@@ -191,6 +191,44 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
       	<div class="article-meta">
+	      	<a href="/2018/11/20/javascript设计模式(二)/" class="archive-article-date">
+  	<time datetime="2018-11-20T07:17:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/11/20/javascript设计模式(二)/">javascript设计模式(二)</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">javascript设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
 	      	<a href="/2018/11/19/javascript设计模式(一)/" class="archive-article-date">
   	<time datetime="2018-11-19T07:31:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
@@ -472,12 +510,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
-  $.ajax({
-    url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed?urlAddress=' + window.location.href,
-    type: 'get',
-    success: function(data){
-      console.log(data)
-    }
-  })
+  (function(){
+    new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'https://bird.ioliu.cn/ip',
+        type: 'get',
+        success: function(data) {
+          if (data.status.code == 200) {
+            resolve(data.data.ip)
+          } else {
+            reject(data.status.message)
+          }
+        },
+        error: function(err) {
+          reject(err)
+        }
+      }).then(data => {
+        $.ajax({
+          url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed?ipAddr=' + data.data.ip + '&add=1',
+          type: 'post',
+          success: function(data) {
+            console.log(data)
+          }
+        })
+      })
+    })
+  })()
 </script>
 </html>

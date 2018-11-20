@@ -330,6 +330,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/11/20/javascript设计模式(二)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          javascript设计模式(二)
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/10/19/读取系统文件目录(一)/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">读取系统文件目录(一)</div>
@@ -610,12 +619,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
-  $.ajax({
-    url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed?urlAddress=' + window.location.href,
-    type: 'get',
-    success: function(data){
-      console.log(data)
-    }
-  })
+  (function(){
+    new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'https://bird.ioliu.cn/ip',
+        type: 'get',
+        success: function(data) {
+          if (data.status.code == 200) {
+            resolve(data.data.ip)
+          } else {
+            reject(data.status.message)
+          }
+        },
+        error: function(err) {
+          reject(err)
+        }
+      }).then(data => {
+        $.ajax({
+          url: 'https://bird.ioliu.cn/v1?url=http://47.96.179.114:8081/lzl-manager/other/getViewed?ipAddr=' + data.data.ip + '&add=1',
+          type: 'post',
+          success: function(data) {
+            console.log(data)
+          }
+        })
+      })
+    })
+  })()
 </script>
 </html>
