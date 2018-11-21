@@ -489,8 +489,12 @@
   </div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
 <script>
   (function(){
+    var E = window.wangEditor
+    var editor2 = new E('#editor')
+    editor2.create()
     function toast(options){
       let fadeTime = 400;
       let dOptions = {
@@ -668,11 +672,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
+                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">-跟我学node</a>
+                <a href="javascript:void(0)" class="js-tag color5">-你不知道的css</a>
               </li>
             
             <div class="clearfix"></div>
